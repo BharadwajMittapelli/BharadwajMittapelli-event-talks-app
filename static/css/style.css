@@ -36,6 +36,56 @@
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  --gradient-card-fade: var(--bg-card);
+}
+
+/* ===== Light Mode ===== */
+[data-theme="light"] {
+  --bg-primary: #f0f2f5;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f7f8fc;
+  --bg-glass: rgba(255, 255, 255, 0.8);
+
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #8896a6;
+
+  --accent-blue: #3b72e9;
+  --accent-blue-glow: rgba(59, 114, 233, 0.2);
+  --accent-cyan: #0891b2;
+  --accent-purple: #7c3aed;
+  --accent-green: #059669;
+
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-accent: rgba(59, 114, 233, 0.3);
+
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-glow: 0 0 24px rgba(59, 114, 233, 0.06);
+
+  --gradient-card-fade: var(--bg-card);
+}
+
+[data-theme="light"] body::before {
+  background: radial-gradient(circle, rgba(59, 114, 233, 0.05) 0%, transparent 70%);
+}
+
+[data-theme="light"] body::after {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.04) 0%, transparent 70%);
+}
+
+[data-theme="light"] .skeleton-line {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .feed-card__date {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .feed-card__content code {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--accent-purple);
 }
 
 /* ===== Reset & Base ===== */
@@ -106,6 +156,7 @@ body::after {
 .app-header {
   text-align: center;
   margin-bottom: 48px;
+  position: relative;
 }
 
 .app-header__icon {
@@ -147,6 +198,58 @@ body::after {
   font-weight: 400;
 }
 
+/* ===== Theme Toggle ===== */
+.theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-toggle__label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  user-select: none;
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: var(--border-subtle);
+  border-radius: 26px;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: background var(--transition-normal);
+}
+
+.theme-toggle__track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition-normal);
+}
+
+.theme-toggle__track--light::after {
+  transform: translateX(22px);
+}
+
+.theme-toggle__icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--text-muted);
+  transition: fill var(--transition-fast);
+}
+
 /* ===== Toolbar ===== */
 .toolbar {
   display: flex;
@@ -165,6 +268,12 @@ body::after {
 .toolbar__info span {
   color: var(--accent-cyan);
   font-weight: 600;
+}
+
+.toolbar__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 /* ===== Buttons ===== */
@@ -221,6 +330,28 @@ body::after {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+}
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 14px;
+  font-size: 0.8rem;
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+}
+
+[data-theme="light"] .btn--ghost {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .btn--ghost:hover {
+  background: rgba(0, 0, 0, 0.07);
 }
 
 .btn svg {
@@ -359,7 +490,7 @@ body::after {
   left: 0;
   right: 0;
   height: 40px;
-  background: linear-gradient(to bottom, transparent, var(--bg-card));
+  background: linear-gradient(to bottom, transparent, var(--gradient-card-fade));
   pointer-events: none;
 }
 
@@ -433,6 +564,64 @@ body::after {
 }
 
 .feed-card--selected .feed-card__check svg {
+  opacity: 1;
+}
+
+/* ===== Copy Button ===== */
+.feed-card__copy {
+  position: absolute;
+  top: 12px;
+  right: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition: all var(--transition-fast);
+  z-index: 2;
+}
+
+.feed-card:hover .feed-card__copy {
+  opacity: 1;
+}
+
+.feed-card__copy:hover {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: white;
+}
+
+.feed-card__copy svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Copy tooltip */
+.feed-card__copy-tooltip {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--accent-green);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.feed-card__copy-tooltip--visible {
   opacity: 1;
 }
 
