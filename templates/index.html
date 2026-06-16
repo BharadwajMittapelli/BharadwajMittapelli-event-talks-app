@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BigQuery Release Notes</title>
+  <meta name="description" content="Browse the latest Google BigQuery release notes and share updates on Twitter." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="app-header__icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+        </svg>
+      </div>
+      <h1 class="app-header__title">BigQuery Release Notes</h1>
+      <p class="app-header__subtitle">Latest updates from the Google Cloud BigQuery feed</p>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar__info">
+        <span id="noteCount">—</span> entries &middot; Updated at <span id="lastUpdated">—</span>
+      </div>
+      <button class="btn btn--primary" id="refreshBtn" type="button">
+        <div class="spinner" id="refreshSpinner" style="display:none"></div>
+        <span id="refreshLabel">Refresh Feed</span>
+      </button>
+    </div>
+
+    <!-- Feed -->
+    <section class="feed" id="feed" aria-label="Release notes feed">
+      <!-- Cards injected by JS -->
+    </section>
+  </div>
+
+  <!-- Floating Tweet Bar -->
+  <div class="tweet-bar" id="tweetBar">
+    <span class="tweet-bar__text" id="tweetTitle">Select an update to tweet</span>
+    <button class="btn btn--twitter" id="tweetBtn" type="button">
+      <svg viewBox="0 0 24 24">
+        <path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 001.88-2.38 8.59 8.59 0 01-2.72 1.04 4.28 4.28 0 00-7.32 3.91A12.16 12.16 0 013.16 4.86a4.28 4.28 0 001.33 5.71 4.24 4.24 0 01-1.94-.54v.05a4.28 4.28 0 003.43 4.19 4.27 4.27 0 01-1.93.07 4.29 4.29 0 004 2.98A8.59 8.59 0 012 19.54a12.13 12.13 0 006.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.72 8.72 0 0024 5.56a8.49 8.49 0 01-2.54.7z"/>
+      </svg>
+      Tweet
+    </button>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
