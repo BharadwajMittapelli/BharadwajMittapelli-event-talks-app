@@ -11,7 +11,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
-  <div class="app-container">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <div class="app-container" id="appContainer">
     <!-- Header -->
     <header class="app-header">
       <div class="app-header__icon">
@@ -34,6 +37,12 @@
       </div>
     </header>
 
+    <!-- Onboarding Hint (#1) -->
+    <div class="onboarding-hint" id="onboardingHint">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+      <span>💡 Click any card to select it, then tweet about it. Hover to copy details.</span>
+    </div>
+
     <!-- Toolbar -->
     <div class="toolbar">
       <div class="toolbar__info">
@@ -51,14 +60,33 @@
       </div>
     </div>
 
+    <!-- Search Bar (#10) -->
+    <div class="search-bar">
+      <svg class="search-bar__icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input class="search-bar__input" id="searchInput" type="text" placeholder="Search release notes..." aria-label="Search release notes" />
+    </div>
+
+    <!-- Filter & Sort Bar (#11, #12) -->
+    <div class="filter-bar">
+      <button class="filter-chip filter-chip--active" data-filter="all" type="button">All</button>
+      <button class="filter-chip" data-filter="7" type="button">Last 7 days</button>
+      <button class="filter-chip" data-filter="30" type="button">Last 30 days</button>
+      <button class="filter-chip" data-filter="90" type="button">Last 90 days</button>
+      <div class="filter-bar__separator"></div>
+      <button class="sort-btn" id="sortBtn" type="button" title="Toggle sort order">
+        <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+        Newest first
+      </button>
+    </div>
+
     <!-- Feed -->
     <section class="feed" id="feed" aria-label="Release notes feed">
       <!-- Cards injected by JS -->
     </section>
   </div>
 
-  <!-- Floating Tweet Bar -->
-  <div class="tweet-bar" id="tweetBar">
+  <!-- Floating Tweet Bar (#13: aria-live) -->
+  <div class="tweet-bar" id="tweetBar" role="status" aria-live="polite">
     <span class="tweet-bar__text" id="tweetTitle">Select an update to tweet</span>
     <button class="btn btn--twitter" id="tweetBtn" type="button">
       <svg viewBox="0 0 24 24">
