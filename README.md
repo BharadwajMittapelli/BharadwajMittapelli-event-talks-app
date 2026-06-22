@@ -79,7 +79,7 @@ A Flask web application that fetches and displays the latest [Google BigQuery re
 
 ## 🐦 Tweet Integration
 
-When you select a release note card, a floating tweet bar appears at the bottom. Clicking **Tweet** opens Twitter's compose window pre-filled with:
+When you select a release note card, a floating tweet bar appears at the bottom. Clicking **Tweet** opens Twitter's compose window pre-filled with :
 
 ```
 📢 BigQuery Update: <Title>
